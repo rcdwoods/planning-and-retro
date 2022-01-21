@@ -1,0 +1,125 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Scrum Planning and Retro API
+basePath: /v1
+tags:
+  - name: user
+schemes:
+  - https
+paths:
+  '/users':
+    get:
+      tags:
+        - user
+      summary: Retrieve Users
+      description: Retrieve Users.
+      operationId: retrieveUsers
+      parameters:
+      - in: query
+        name: page
+        description: page number starting at zero
+        required: true
+        type: integer
+        format: int32
+      - in: query
+        name: per_page
+        description: page size - 5 by default
+        type: integer
+        format: int32
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: ok
+          schema:
+            $ref: '#/definitions/UsersPaginated'
+    post:
+      tags:
+        - user
+      summary: Register User
+      description: Register User.
+      operationId: registerUser
+      parameters:
+        - in: body
+          name: user
+          description: User to register
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: ok
+          schema:
+            $ref: '#/definitions/User'
+    put:
+      tags:
+        - employee
+      summary: Update User
+      description: Update User.
+      operationId: updateUser
+      parameters:
+        - in: body
+          name: user
+          description: User to update
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: ok
+          schema:
+            $ref: '#/definitions/User'
+    delete:
+      tags:
+        - user
+      summary: Delete User
+      description: Delete User.
+      operationId: deleteUser
+      parameters:
+        - in: path
+          name: id
+          description: User identifier
+          required: true
+          type: integer
+          format: int64
+      produces:
+        - application/json
+      responses:
+        '204':
+          description: ok
+
+definitions:
+  User:
+    type: object
+    description: User
+    properties:
+      id:
+        description: User identifier
+        type: integer
+        format: int64
+      name:
+        type: string
+      email:
+        type: string
+  UsersPaginated:
+    type: object
+    description: User paginated
+    properties:
+      content:
+        description: Users
+        type: array
+        items:
+          $ref: '#/definitions/User'
+      page:
+        description: Actual page
+        type: integer
+        format: int32
+      per_page:
+        description: Users per page
+        type: integer
+        format: int32
