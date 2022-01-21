@@ -10,4 +10,4 @@ services:
       - MYSQL_USER=scrum
       - MYSQL_PASSWORD=scrum
     ports:
-      - 3306:3306
+      - 3307:3306
