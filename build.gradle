@@ -1,7 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.3'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.springframework.boot' version "$springVersion"
+	id 'io.spring.dependency-management' version "$springDependencyManagementVersion"
 	id "org.hidetake.swagger.generator" version "$swaggerGeneratorVersion" apply false
+	id "org.sonarqube" version "$sonarVersion"
 	id 'java'
 }
 
@@ -59,6 +60,14 @@ dependencies {
 
 	springFoxArtifacts.each {
 		artifact -> implementation "io.springfox:$artifact:$springFoxVersion"
+	}
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "rcdwoods_planning-and-retro"
+		property "sonar.organization", "rcdwoods"
+		property "sonar.host.url", "https://sonarcloud.io"
 	}
 }
 
