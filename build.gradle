@@ -11,6 +11,22 @@ group = 'com.scrum'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+sourceSets {
+	main {
+		java {
+			srcDir file("${buildDir}/generated/source/")
+			srcDir file("${buildDir}/swagger-code-server/src/main/java")
+		}
+		resources { srcDir 'src/main/resources' }
+	}
+	test {
+		resources { srcDir 'src/test/resources' }
+	}
+
+	main.java.srcDirs += 'src/main/java'
+	test.java.srcDirs += 'src/test/java'
+}
+
 repositories {
 	mavenCentral()
 }
@@ -25,13 +41,35 @@ ext {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation "org.mapstruct:mapstruct:$mapstructVersion"
+	implementation 'io.rest-assured:xml-path:4.5.0'
+	implementation "io.rest-assured:json-path:$restAssuredVersion"
+
+	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
 	runtimeOnly 'mysql:mysql-connector-java'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "io.rest-assured:spring-mock-mvc:$restAssuredVersion"
+	testImplementation "io.rest-assured:rest-assured:$restAssuredVersion"
 
 	swaggerCodegen "io.swagger:swagger-codegen-cli:$swaggerCodeGenVersion"
 	swaggerUI "org.webjars:swagger-ui:$swaggerUIVersion"
+
+	springFoxArtifacts.each {
+		artifact -> implementation "io.springfox:$artifact:$springFoxVersion"
+	}
 }
 
 test {
 	useJUnitPlatform()
+}
+
+tasks.processResources {
+	duplicatesStrategy = 'include'
+}
+
+tasks.processTestResources {
+	duplicatesStrategy = 'include'
 }
