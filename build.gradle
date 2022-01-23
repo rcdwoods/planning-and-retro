@@ -41,10 +41,18 @@ ext {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation "org.mapstruct:mapstruct:$mapstructVersion"
+	implementation 'io.rest-assured:xml-path:4.5.0'
+	implementation "io.rest-assured:json-path:$restAssuredVersion"
+
 	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
 	runtimeOnly 'mysql:mysql-connector-java'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "io.rest-assured:spring-mock-mvc:$restAssuredVersion"
+	testImplementation "io.rest-assured:rest-assured:$restAssuredVersion"
 
 	swaggerCodegen "io.swagger:swagger-codegen-cli:$swaggerCodeGenVersion"
 	swaggerUI "org.webjars:swagger-ui:$swaggerUIVersion"
