@@ -9,5 +9,4 @@ public class PlanningAndRetroApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PlanningAndRetroApplication.class, args);
 	}
-
 }
